@@ -13,9 +13,9 @@ datasource db {
 model User {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   phoneNumber   String   @unique
-  name    String?
-  photoURL String
-  allergies String?
+  name    String
+  photoURL String?
+  allergies String
   bloodType bloodType?
   medicalConditions String?
   eventIds String[] @db.ObjectId
@@ -39,6 +39,6 @@ enum bloodType{
   ANEGATIVE
   BPOSITIVE
   BNEGATIVE
-  ABPOSITIVE
-  ABNEGATIVE
+  AB
+  UNKNOWN
 }
