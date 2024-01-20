@@ -12,12 +12,12 @@ datasource db {
 
 model User {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  phoneNumber   String   @unique
+  tel   String
   name    String
+  email    String @unique
   photoURL String?
-  allergies String
-  bloodType bloodType
-  medicalConditions String?
+  bloodType BloodType
+  additionalInfo String?
   eventIds String[] @db.ObjectId
   events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
   adminEvents Event[] @relation(name: "admins", fields: [eventIds], references:[id])
