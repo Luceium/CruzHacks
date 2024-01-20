@@ -11,18 +11,17 @@ datasource db {
 }
 
 model User {
-  id String @id @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   email      String   @unique
-  phoneNumber   String   @unique
+  tel   String 
   name    String?
-  photoURL String
-  allergies String?
+  photoURL String?
+  additionalInfo String?
   bloodType BloodType?
   medicalConditions String?
   eventIds String[] @db.ObjectId
   events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
   adminEvents Event[] @relation(name: "admins", fields: [eventIds], references:[id])
-  isMedical Boolean
 }
 
 model Event {
