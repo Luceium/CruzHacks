@@ -26,6 +26,7 @@ model User {
 model Event {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
+  description String
   userIds  String[]  @db.ObjectId
   users    User[]    @relation(name: "attendees", fields: [userIds], references:[id])
   admins   User[]    @relation(name: "admins", fields: [userIds], references:[id])
