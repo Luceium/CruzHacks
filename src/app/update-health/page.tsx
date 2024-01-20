@@ -4,6 +4,8 @@ import prisma from '@/lib/prisma'
 import React from 'react'
 import { z } from 'zod'
 import { redirect } from 'next/navigation'
+import { useFormState } from 'react-dom'
+import { getSession } from '@auth0/nextjs-auth0';
 
 const schema = z.object({
   name : z.string().regex(/[a-zA-Z ]+/g),
@@ -24,17 +26,24 @@ const schema = z.object({
 
 const updateHealth = async (formData : FormData) => {
   'use server'
+
+  const {user} = (await getSession())!
+  console.log(`LOG: ${JSON.stringify(user)} - ${user.email}`)
+
   const result = schema.safeParse({
     name : formData.get('name'),
     tel : formData.get('tel'),
-    email : formData.get('email'),
+    email : user.email,
     bloodType : formData.get('bloodType'),
     additionalInfo : formData.get('additionalInfo')
   })
 
   if (result.success) {
-    await prisma.user.create({
-      data: result.data
+    console.log(result.data)
+    await prisma.user.upsert({
+      where: {email: user.email},
+      update: result.data,
+      create: result.data
     })
   } else {
     console.log(result.error)
@@ -45,7 +54,12 @@ const updateHealth = async (formData : FormData) => {
 }
 
 const Signup = () => {
-
+  // 'use client'
+  // const [state, formAction] = useFormState(updateHealth, {
+  //   nameError : false,
+  //   telError : false,
+  //   bloodTypeError : false
+  // });
 
   return (
     <div className='md:flex justify-center min-h-[calc(100vh)]'>
@@ -54,9 +68,8 @@ const Signup = () => {
           <form className='flex flex-col gap-4' action={updateHealth}>
             <input required type="text" name='name' placeholder="Full Name" autoComplete='name' className="input input-bordered w-full text-base-content" />
             <input required type="tel" name='tel' placeholder="Phone number. Ex. 101-111-1111" autoComplete='tel' className="input input-bordered w-full text-base-content" />
-            <input required type="email" name='email' placeholder="Email" autoComplete='email' className="input input-bordered w-full text-base-content" />
-            <select required name='bloodType' className="select text-base-content w-full text-base-content">
-              <option disabled selected>Blood Type</option>
+            <select required defaultValue="Blood Type" name='bloodType' className="select text-base-content w-full text-base-content">
+              <option disabled>Blood Type</option>
               <option value='UNKNOWN'>Unknown</option>
               <option value='OPOSITIVE'>O+</option>
               <option value='ONEGATIVE'>O-</option>
