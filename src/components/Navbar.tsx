@@ -10,7 +10,7 @@ export default function Navbar() {
     const [toggled, setToggled] = useState(false);
     const {user, isLoading} = useUser();
     return (
-        <nav className={classNames("bg-secondary text-xl md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
+        <nav className={classNames("bg-primary text-xl md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-24": !toggled})}>
             <div className="flex justify-between">
                 <Image src={sleepySlug} alt="" width="64" height="64"/>
                 <div className="inline md:hidden" onClick={() => setToggled(!toggled)}>
