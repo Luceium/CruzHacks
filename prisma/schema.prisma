@@ -11,25 +11,29 @@ datasource db {
 }
 
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  tel   String
-  name    String
-  email    String @unique
-  photoURL String?
-  bloodType BloodType
-  additionalInfo String?
+  id String @id @map("_id") @db.ObjectId
+  email      String   @unique
+  phoneNumber   String   @unique
+  name    String?
+  photoURL String
+  allergies String?
+  bloodType BloodType?
+  medicalConditions String?
   eventIds String[] @db.ObjectId
   events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
   adminEvents Event[] @relation(name: "admins", fields: [eventIds], references:[id])
+  isMedical Boolean
 }
 
 model Event {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
   description String
-  userIds  String[]  @db.ObjectId
+  location String
+  userIds  String[] @db.ObjectId
   users    User[]    @relation(name: "attendees", fields: [userIds], references:[id])
-  admins   User[]    @relation(name: "admins", fields: [userIds], references:[id])
+  adminIds  String[] @db.ObjectId
+  admins   User[]    @relation(name: "admins", fields: [adminIds], references:[id])
 }
 
 enum BloodType{
