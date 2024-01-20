@@ -53,4 +53,4 @@ export default function AddEvent(){
             </div>
         </div>
     )
-}
+};
