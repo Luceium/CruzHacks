@@ -1,3 +1,4 @@
+import Link from "next/link";
 import prisma from "../lib/prisma";
 import { Event } from "@prisma/client";
 
@@ -17,11 +18,11 @@ const EventComponent = (event : Event) => {
           {event.location}
         </div>
       </div>
-      <a href={`/events/${event.title}`}>
+      <Link href={`/events/${event.id}`}>
         <button className="btn btn-secondary md:w-24 col-span-2">
           Join Event
         </button>
-      </a>
+      </Link>
       <div className="truncate col-span-5">
         {event.description}
       </div>
@@ -51,11 +52,11 @@ export default async function Home() {
               Click the button below to create a new event for others to join!
             </div>
             <div className="flex h-full justify-center items-center">
-              <a href="/addEvent" className="p-4">
+              <Link href="/addEvent" className="p-4">
                 <button className="btn bg-secondary text-xl border-0">
                   Add Events
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         )}
