@@ -1,74 +1,21 @@
-import { BloodType, Prisma } from '@prisma/client'
-import { getPrismaClient } from '@prisma/client/runtime/library'
-import prisma from '@/lib/prisma'
+'use client'
 import React from 'react'
-import { z } from 'zod'
-import { redirect } from 'next/navigation'
 import { useFormState } from 'react-dom'
-import { getSession } from '@auth0/nextjs-auth0';
+import { updateHealth } from '../actions'
 
-const schema = z.object({
-  name : z.string().regex(/[a-zA-Z ]+/g),
-  tel : z.string().regex(/\d{3}-?\d{3}-?\d{4}/g),
-  email : z.string().email(),
-  bloodType : z.union([
-    z.literal("OPOSITIVE"),
-    z.literal("ONEGATIVE"),
-    z.literal("APOSITIVE"),
-    z.literal("ANEGATIVE"),
-    z.literal("BPOSITIVE"),
-    z.literal("BNEGATIVE"),
-    z.literal("AB"),
-    z.literal("UNKNOWN")
-  ]),
-  additionalInfo : z.optional(z.string())
-})
-
-const updateHealth = async (formData : FormData) => {
-  'use server'
-
-  const {user} = (await getSession())!
-  console.log(`LOG: ${JSON.stringify(user)} - ${user.email}`)
-
-  const validatedFields = schema.safeParse({
-    name : formData.get('name'),
-    tel : formData.get('tel'),
-    email : user.email,
-    bloodType : formData.get('bloodType'),
-    additionalInfo : formData.get('additionalInfo')
-  })
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-
-  console.log(validatedFields.data)
-  await prisma.user.upsert({
-    where: {email: user.email},
-    update: validatedFields.data,
-    create: validatedFields.data
-  })
-  
-  }
-
-  redirect('/')
+const initialState = {
+  errors: "",
 }
 
 const Signup = () => {
-  // 'use client'
-  // const [state, formAction] = useFormState(updateHealth, {
-  //   nameError : false,
-  //   telError : false,
-  //   bloodTypeError : false
-  // });
+  const [state, formAction] = useFormState(updateHealth, initialState)
+  console.log(state);
 
   return (
     <div className='md:flex justify-center min-h-[calc(100vh)]'>
       <div className='flex flex-col px-4 py-32 gap-8'>
           <h1 className='text-4xl font-bold'>Update Health Information</h1>
-          <form className='flex flex-col gap-4' action={updateHealth}>
+          <form className='flex flex-col gap-4' action={formAction}>
             <input required type="text" name='name' placeholder="Full Name" autoComplete='name' className="input input-bordered w-full text-base-content" />
             <input required type="tel" name='tel' placeholder="Phone number. Ex. 101-111-1111" autoComplete='tel' className="input input-bordered w-full text-base-content" />
             <select required defaultValue="Blood Type" name='bloodType' className="select text-base-content w-full text-base-content">
@@ -87,7 +34,8 @@ const Signup = () => {
               Update
             </button>
           </form>
-          
+          {state.errors.includes("bloodType") && <p>Please select a blood type.</p>}
+          {state.errors.includes("tel") && <p>Please input a phone number in the format ddd-ddd-dddd.</p>}
       </div>
     </div>
   )
