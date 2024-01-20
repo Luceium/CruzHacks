@@ -16,7 +16,7 @@ model User {
   name    String
   photoURL String?
   allergies String
-  bloodType bloodType?
+  bloodType bloodType
   medicalConditions String?
   eventIds String[] @db.ObjectId
   events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
