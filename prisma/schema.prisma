@@ -6,6 +6,38 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  phoneNumber   String   @unique
+  name    String?
+  photoURL String
+  allergies String?
+  bloodType bloodType?
+  medicalConditions String?
+  eventIds String[] @db.ObjectId
+  events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
+  adminEvents Event[] @relation(name: "admins", fields: [eventIds], references:[id])
+}
+
+model Event {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  userIds  String[]  @db.ObjectId
+  users    User[]    @relation(name: "attendees", fields: [userIds], references:[id])
+  admins   User[]    @relation(name: "admins", fields: [userIds], references:[id])
+}
+
+enum bloodType{
+  OPOSITIVE
+  ONEGATIVE
+  APOSITIVE
+  ANEGATIVE
+  BPOSITIVE
+  BNEGATIVE
+  ABPOSITIVE
+  ABNEGATIVE
 }
