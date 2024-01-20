@@ -23,9 +23,7 @@ const schema = z.object({
 })
 
 export async function updateHealth(prevState: any, formData : FormData) {
-    console.log("FUCk")
     const {user} = (await getSession())!
-    console.log(`LOG: ${JSON.stringify(user)} - ${user.email}`)
 
     const validatedFields = schema.safeParse({
         name : formData.get('name'),
@@ -48,6 +46,9 @@ export async function updateHealth(prevState: any, formData : FormData) {
         create: validatedFields.data
     })
 
-    redirect('/')
-    return {errors: ""};
+    if (!prevState.softRedirect) {
+        redirect('/')
+    }
+
+    return {...prevState, errors: "", refresh: true};
 }

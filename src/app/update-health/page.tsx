@@ -2,14 +2,18 @@
 import React from 'react'
 import { useFormState } from 'react-dom'
 import { updateHealth } from '../actions'
+import { useRouter } from 'next/navigation'
 
-const initialState = {
-  errors: "",
-}
-
-const Signup = () => {
-  const [state, formAction] = useFormState(updateHealth, initialState)
-  console.log(state);
+export default (props : any) => {
+  const [state, formAction] = useFormState(updateHealth, {
+    errors: "",
+    softRedirect: props.softRedirect,
+    refresh: false
+  })
+  if (state.refresh) {
+    const router = useRouter()
+    router.refresh()
+  }
 
   return (
     <div className='md:flex justify-center min-h-[calc(100vh)]'>
@@ -40,5 +44,3 @@ const Signup = () => {
     </div>
   )
 }
-
-export default Signup
