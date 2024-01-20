@@ -25,27 +25,25 @@ export default async function Page({ params }: { params: { id: string} }) {
    console.log(users)
 
    return (
-    <Enforce>
-      <div className="flex">
+    <div className="flex">
+      {/* Left section */}
         {/* Left section */}
-         {/* Left section */}
-         <div className="w-1/4 p-4 border-r border-gray-300">
-          <h2 className="text-xl font-bold mb-4">Left Section</h2>
-          {/* Add content for the left section */}
-        </div>
-        {/* Middle section */}
-        <div className="w-1/2 p-4">
-          <h2 className="text-xl font-bold mb-4">Middle Section</h2>
-          {/* Add content for the middle section */}
-          <p>Middle</p>
-        </div>
-        {/* Right section */}
-        <div className="w-1/4 p-4 border-l border-red-300">
-          <h2 className="text-xl font-bold mb-4">Right Section</h2>
-          <p>Right</p>
-        </div>
+        <div className="w-1/4 p-4 border-r border-gray-300">
+        <h2 className="text-xl font-bold mb-4">Left Section</h2>
+        {/* Add content for the left section */}
       </div>
-    </Enforce>
+      {/* Middle section */}
+      <div className="w-1/2 p-4">
+        <h2 className="text-xl font-bold mb-4">Middle Section</h2>
+        {/* Add content for the middle section */}
+        <p>Middle</p>
+      </div>
+      {/* Right section */}
+      <div className="w-1/4 p-4 border-l border-red-300">
+        <h2 className="text-xl font-bold mb-4">Right Section</h2>
+        <p>Right</p>
+      </div>
+    </div>
   );
 
   }
