@@ -5,6 +5,7 @@ import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import sleepySlug from "../../assets/sleepy-slug.png"
 import Image from "next/image"
+import Link from "next/link";
 
 export default function Navbar() {
     const [toggled, setToggled] = useState(false);
@@ -12,7 +13,9 @@ export default function Navbar() {
     return (
         <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
             <div className="flex justify-between">
-                <Image src={sleepySlug} alt="" className="w-8 h-8 md:w-16 md:h-16" width="64" height="64"/>
+                <Link href="/">
+                    <Image src={sleepySlug} alt="" className="w-8 h-8 md:w-16 md:h-16" width="64" height="64"/>
+                </Link>
                 <div className="inline md:hidden" onClick={() => setToggled(!toggled)}>
                     <IoMenu className="h-8 w-8"/>
                 </div>
