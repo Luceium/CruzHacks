@@ -30,7 +30,7 @@ const updateHealth = async (formData : FormData) => {
   const {user} = (await getSession())!
   console.log(`LOG: ${JSON.stringify(user)} - ${user.email}`)
 
-  const result = schema.safeParse({
+  const validatedFields = schema.safeParse({
     name : formData.get('name'),
     tel : formData.get('tel'),
     email : user.email,
@@ -38,16 +38,19 @@ const updateHealth = async (formData : FormData) => {
     additionalInfo : formData.get('additionalInfo')
   })
 
-  if (result.success) {
-    console.log(result.data)
-    await prisma.user.upsert({
-      where: {email: user.email},
-      update: result.data,
-      create: result.data
-    })
-  } else {
-    console.log(result.error)
-    return result.error
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
+  console.log(validatedFields.data)
+  await prisma.user.upsert({
+    where: {email: user.email},
+    update: validatedFields.data,
+    create: validatedFields.data
+  })
+  
   }
 
   redirect('/')
@@ -84,7 +87,7 @@ const Signup = () => {
               Update
             </button>
           </form>
-          <p></p>
+          
       </div>
     </div>
   )
