@@ -17,7 +17,7 @@ const EventComponent = (event : Event) => {
           {event.location}
         </div>
       </div>
-      <a href={`\${event.Id}`}>
+      <a href={`/${event.id}`}>
         <button className="btn btn-secondary md:w-24 col-span-2">
           Join Event
         </button>
