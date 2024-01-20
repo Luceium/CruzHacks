@@ -32,7 +32,7 @@ model Event {
   admins   User[]    @relation(name: "admins", fields: [userIds], references:[id])
 }
 
-enum bloodType{
+enum BloodType{
   OPOSITIVE
   ONEGATIVE
   APOSITIVE
