@@ -3,6 +3,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import prisma from '@/lib/prisma';
 import MultiInput from '@/components/MultiInput';
 import { getSession } from '@auth0/nextjs-auth0';
+import { redirect } from 'next/navigation';
 
 
 export default function AddEvent(){
@@ -33,10 +34,11 @@ export default function AddEvent(){
                 }
             }
         })
+        redirect("/")
     }
 
     return(
-        <div className='md:flex justify-center'>
+        <div className='md:flex justify-center min-h-screen'>
             <div className='flex flex-col px-4 py-32 gap-8'>
                 <h1 className='text-4xl font-bold'>Add Event</h1>
                 <form className='flex flex-col gap-4 text-primary' action={submitEvent}>
