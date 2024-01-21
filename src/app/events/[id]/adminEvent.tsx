@@ -72,6 +72,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
               return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
                 <button className="float-right" onClick={async () => {
                   await deleteEmergency(emergency, event)
+                  setEmergencies(emergencies => emergencies.filter(e => e.id !== emergency.id))
                 }}>
                   X
                 </button>
