@@ -41,7 +41,7 @@ export default function AddEvent(){
     return(
         <div className='md:flex justify-center min-h-screen'>
             <div className='flex flex-col px-4 py-32 gap-8'>
-                <h1 className='text-4xl font-bold'>Add Event</h1>
+                <h1 className='text-4xl font-bold text-gray-700'>Add Event</h1>
                 <form className='flex flex-col gap-4 text-primary' action={submitEvent}>
                     <input className='input input-large' name="title" placeholder='Event Name' />
                     <input className='input input-large' name="description" placeholder='Description' />

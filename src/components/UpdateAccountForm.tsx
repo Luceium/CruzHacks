@@ -24,7 +24,7 @@ export default function UpdateAccountForm (props : Props) {
     return (
       <div className='md:flex justify-center min-h-[calc(100vh)]'>
         <div className='flex flex-col px-4 py-32 gap-8'>
-            <h1 className='text-4xl font-bold'>Update Health Information</h1>
+            <h1 className='text-4xl font-bold text-gray-700'>Update Account Information</h1>
             <form className='flex flex-col gap-4' action={formAction}>
               <input required type="text" name='name' placeholder="Full Name" autoComplete='name' className="input input-bordered w-full text-base-content" defaultValue={props.initialValues?.name as string} />
               <input required type="tel" name='tel' placeholder="Phone number. Ex. 101-111-1111" autoComplete='tel' className="input input-bordered w-full text-base-content"  defaultValue={props.initialValues?.tel} />
