@@ -1,6 +1,7 @@
 import Link from "next/link";
 import prisma from "../lib/prisma";
 import { Event } from "@prisma/client";
+import Enforce from "@/util/enforce";
 
 async function getEvents() {
   const events = await prisma.event.findMany();
@@ -9,24 +10,24 @@ async function getEvents() {
 
 const EventComponent = (event : Event) => {
   return(
-    <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 rounded-lg gap-2 text-primary-content justify-center items-center">
-      <div className="flex flex-col col-span-3">
-        <div className="text-h-full text-2xl truncate">
-          {event.title}
+      <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 rounded-lg gap-2 text-primary-content justify-center items-center">
+        <div className="flex flex-col col-span-3">
+          <div className="text-h-full text-2xl truncate">
+            {event.title}
+          </div>
+          <div className="h-[50%] md:h-auto truncate">
+            {event.location}
+          </div>
         </div>
-        <div className="h-[50%] md:h-auto truncate">
-          {event.location}
+        <Link href={`/events/${event.id}`}>
+          <button className="btn btn-secondary md:w-24 col-span-2">
+            Join Event
+          </button>
+        </Link>
+        <div className="truncate col-span-5">
+          {event.description}
         </div>
       </div>
-      <Link href={`/events/${event.id}`}>
-        <button className="btn btn-secondary md:w-24 col-span-2">
-          Join Event
-        </button>
-      </Link>
-      <div className="truncate col-span-5">
-        {event.description}
-      </div>
-    </div>
   )
 }
 
@@ -47,8 +48,8 @@ export default async function Home() {
         ) : (
           <div className="flex flex-col col-span-3">
             <div className="text-3xl md:text-2xl text-center justify-center text-primary-content col-span-3 md:p-12">
-              No events are currently available. 
-              <br/><br/> 
+              No events are currently available.
+              <br/><br/>
               Click the button below to create a new event for others to join!
             </div>
             <div className="flex h-full justify-center items-center">

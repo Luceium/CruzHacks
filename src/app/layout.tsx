@@ -23,7 +23,7 @@ export default function RootLayout({
       <UserProvider>
         <body className={`bg-white ${inter.className}`}>
           <Navbar />
-          {children}
+          <Enforce>{children}</Enforce>
         </body>
       </UserProvider>
     </html>

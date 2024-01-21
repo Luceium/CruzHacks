@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import MultiInput from '@/components/MultiInput';
 import { getSession } from '@auth0/nextjs-auth0';
 import { redirect } from 'next/navigation';
+import Enforce from '@/util/enforce';
 
 
 export default function AddEvent(){
