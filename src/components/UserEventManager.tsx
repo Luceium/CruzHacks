@@ -49,7 +49,7 @@ export default function UserEventManager({user, event}: {user: User, event: Even
         </Incident>
         <div className="form-control">
           <label className="label cursor-pointer">
-            <span className="label-text">Do you want someone to call you?</span> 
+            <span className="label-text mr-2">Do you want someone to call you?</span> 
             <input type="checkbox" checked={call} className="checkbox" onChange={() => checkCall(!call)} />
           </label>
         </div>
