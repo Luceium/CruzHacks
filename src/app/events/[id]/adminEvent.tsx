@@ -11,7 +11,8 @@ type Emergency = _Emergency & {
   user: User
 }
 
-const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: User[], users: User[], emergencies: Emergency[], event: Event}) => {
+const AdminEvent = ({admins, users: _users, emergencies: _emergencies, event}: {admins: User[], users: User[], emergencies: Emergency[], event: Event}) => {
+  const [users, setUsers] = useState(_users);
   const [emergencies, setEmergencies] = useState(_emergencies)
   const [deleting, setDeleting] = useState(false);
   useEffect(() => {
@@ -24,14 +25,17 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
       const data = JSON.parse(event.data);
 
       switch (data.type) {
-        case "create":
+        case "createEmergency":
           var audio = new Audio(data.sound);
           audio.play();
 
           setEmergencies(emergencies => [data.emergency, ...emergencies])
           break;
-        case "delete":
+        case "deleteEmergency":
           setEmergencies(emergencies => emergencies.filter(emergency => emergency.id != data.emergency.id))
+          break;
+        case "updateUsers":
+          setUsers(data.users);
           break;
       }
     };

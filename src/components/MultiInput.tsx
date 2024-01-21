@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import className from "classnames";
 
 type Props = {
@@ -16,6 +16,9 @@ type Props = {
 
 export default function MultiInput(props: Props) {
     const [value, setValue] = useState(props.initialValue ?? []);
+    useEffect(() => {
+        setValue(value => props.initialValue ?? value);
+    }, [props.initialValue])
     const [nextValue, setNextValue] = useState("");
     return <div className={className("form-control", props.className)}>
         <div className="input-group flex w-full justify-between gap-2">

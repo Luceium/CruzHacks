@@ -81,23 +81,55 @@ export async function removeAdmin(event: Event, email: string) {
     })).admins;
 }
 export async function removeUser(event: Event, email: string) {
-    return (await prisma.event.update({
+    const result = (await prisma.event.update({
         'where' : {id : event.id},
         'data' : {users: {disconnect: {email}}},
         include: {
             users: true
         }
     })).users;
+    
+    try {
+        const url = "https://elastic-groovy-dietician.glitch.me/updateUsers"
+        await(await fetch(url, {
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                event,
+                users: result
+            }),
+            method: "POST"
+        })).json();
+    } catch {}
+
+    return result;
 }
 
 export async function addUser(event: Event, email: string) {
-    return (await prisma.event.update({
+    const result = (await prisma.event.update({
         'where' : {id : event.id},
         'data' : {users: {connect: {email}}},
         include: {
             users: true
         }
     })).users;
+
+    try {
+        const url = "https://elastic-groovy-dietician.glitch.me/updateUsers"
+        await(await fetch(url, {
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                event,
+                users: result
+            }),
+            method: "POST"
+        })).json();
+    } catch {}
+
+    return result;
 }
 
 export async function createEmergency(user: User, event: Event, type: StatusType, message: string){
@@ -123,7 +155,7 @@ export async function createEmergency(user: User, event: Event, type: StatusType
     });
 
     try {
-        const url = "https://elastic-groovy-dietician.glitch.me/create"
+        const url = "https://elastic-groovy-dietician.glitch.me/createEmergency"
         await(await fetch(url, {
             headers:{
                 "Content-Type": "application/json"
@@ -147,7 +179,7 @@ export async function deleteEmergency(emergency: Emergency, event: Event){
     });
 
     try {
-        const url = "https://elastic-groovy-dietician.glitch.me/delete"
+        const url = "https://elastic-groovy-dietician.glitch.me/deleteEmergency"
         await(await fetch(url, {
             headers:{
                 "Content-Type": "application/json"

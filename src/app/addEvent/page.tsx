@@ -17,7 +17,7 @@ export default function AddEvent(){
             return;
         }
 
-        
+
         await prisma.event.create({
             data: {
                 title: formData.get("title") as string,
@@ -46,7 +46,7 @@ export default function AddEvent(){
                     <input className='input input-large' name="title" placeholder='Event Name' />
                     <input className='input input-large' name="description" placeholder='Description' />
                     <input className='input input-large' name="location" placeholder='Location' />
-                    <MultiInput name='admins' type='email' placeholder='Admin (by email)' initialValue={[]}/>
+                    <MultiInput name='admins' type='email' placeholder='Admin (by email)'/>
                     <button className='btn' type="submit">
                         Add Event
                     </button>
