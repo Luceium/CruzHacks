@@ -55,8 +55,8 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
             Location: {event.location}
           </div>
           <div className="flex flex-col gap-3 mt-16 px-8">
-            {emergencies.map((emergency, i) => {
-              return <div key={i} className="bg-gray-700 text-left p-4 rounded-lg">
+            {emergencies.map((emergency) => {
+              return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
                 <p><span className="font-bold">Reporter</span>: {emergency.user.name}</p> 
                 <p><span className="font-bold">Phone</span>: {emergency.user.tel}</p> 
                 <p><span className="font-bold">Time</span>: {dayjs(emergency.time).format("MMMM D, YYYY, h:mm A")}</p> 

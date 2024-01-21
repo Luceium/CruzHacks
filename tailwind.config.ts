@@ -13,6 +13,21 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        notification: {
+          '0%': { 
+            top: "-192px",
+            marginBottom: "-96px"
+          },
+          '100%': { 
+            top: "0",
+            marginBottom: "0"
+          },
+        }
+      },
+      animation: {
+        notification: 'notification 0.5s ease-in-out',
+      },
     },
   },
   daisyui: {
