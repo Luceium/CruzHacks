@@ -11,7 +11,7 @@ const UserList = ({users: _users, event, add, remove}: {users: User[], event: Ev
 
   return (
     <div className="bg-gray-700 rounded-lg shadow-md h-full">
-        <MultiInput className='text-base-content m-4' initialValue={users.map(u => u.email)} onAdd={async (email) => {
+        <MultiInput className='text-base-content m-4' initialValue={users.map(u => u.email)} dontUpdateImmediately={true} onAdd={async (email) => {
             const newUsers = await add(event, email);
             setUsers(newUsers);
           }} onRemove={async (email) => {
