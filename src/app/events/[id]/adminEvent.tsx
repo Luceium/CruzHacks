@@ -22,10 +22,17 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
-      var audio = new Audio(data.sound);
-      audio.play();
+      switch (data.type) {
+        case "create":
+          var audio = new Audio(data.sound);
+          audio.play();
 
-      setEmergencies(emergencies => [data.emergency, ...emergencies])
+          setEmergencies(emergencies => [data.emergency, ...emergencies])
+          break;
+        case "delete":
+          setEmergencies(emergencies => emergencies.filter(emergency => emergency.id != data.emergency.id))
+          break;
+      }
     };
 
     return () => ws.close();

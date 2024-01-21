@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma'
 import { z } from 'zod'
 import { redirect } from 'next/navigation'
 import { getSession } from '@auth0/nextjs-auth0';
-import { Event, User } from '@prisma/client';
+import { Emergency, Event, StatusType, User } from '@prisma/client';
 
 
 const schema = z.object({
@@ -97,4 +97,61 @@ export async function addUser(event: Event, email: string) {
             users: true
         }
     })).users;
+}
+
+export async function createEmergency(user: User, event: Event, type: StatusType){
+    const newEmergency = await prisma.emergency.create({
+        data: {
+            user: {
+                connect: {
+                    id: user.id
+                }
+            },
+            event: {
+                connect: {
+                    id: event.id
+                }
+            },
+            time: new Date(),
+            type
+        },
+        include: {
+            user: true
+        }
+    });
+
+    const url = "http://localhost:1337/create"
+    await(await fetch(url, {
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sound: "",
+        emergency: newEmergency,
+        event
+        }),
+      method: "POST"
+    })).json();
+    return newEmergency;
+}
+
+export async function deleteEmergency(emergency: Emergency, event: Event){
+    const oldEmergency = await prisma.emergency.delete({
+        where: {
+            id: emergency.id
+        }
+    });
+
+    const url = "http://localhost:1337/delete"
+    await(await fetch(url, {
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emergency: oldEmergency,
+        event
+      }),
+      method: "POST"
+    })).json();
+    return oldEmergency;
 }

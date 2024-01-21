@@ -1,32 +1,19 @@
 "use client"
 
-import { Event, User } from "@prisma/client";
+import { createEmergency } from "@/app/actions";
+import { Event, StatusType, User } from "@prisma/client";
 
 
 export default function Emergency(props: {user: User, event: Event}) {
-    async function emergency(){
-        const req = {
-          userId:props.user.id,
-          eventId:props.event.id,
-          type:"EMERGENCY",
-          sound: (window as any).customSound as string
-        }
-        const url = "http://localhost:1337"
-    
-        const res = await( await fetch(url, {
-          headers:{
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(req),
-          method: "POST"
-        })).json();
-      }
-    
-      return (
-        <div>
-          <button className = "bg-red-500" onClick={emergency}>
-            Emergency
-          </button>
-        </div>
-      )
+  async function emergency(){
+    await createEmergency(props.user, props.event, StatusType.EMERGENCY)
+  }
+
+  return (
+    <div>
+      <button className = "bg-red-500" onClick={emergency}>
+        Emergency
+      </button>
+    </div>
+  )
 }

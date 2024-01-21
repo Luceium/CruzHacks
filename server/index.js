@@ -3,9 +3,6 @@ const express = require('express')
 const WebSocket = require('ws')
 const cors =require('cors')
 
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient()
-
 const app = express();
 app.use(cors())
 app.use(express.json())
@@ -13,37 +10,29 @@ app.use(express.json())
 const server = http.createServer(app)
 const wss = new WebSocket.Server({server});
 
-app.post('/', async function requestHandler(req, res){
-    const newEmergency = await prisma.emergency.create({
-        data: {
-            user: {
-                connect: {
-                    id: req.body.userId
-                }
-            },
-            event: {
-                connect: {
-                    id: req.body.eventId
-                }
-            },
-            time: new Date(),
-            type: req.body.type
-        },
-        include: {
-            user: true
-        }
-    })
+app.post('/create', async function requestHandler(req, res){
     wss.clients.forEach(client => {
-        if (client.eventId === req.body.eventId){
+        if (client.eventId === req.body.event.id){
             client.send(JSON.stringify({
-                emergency: newEmergency,
+                type: "create",
+                emergency: req.body.emergency,
                 sound: req.body.sound
             }));
         }
     });
-    res.status(200).json();
+    res.status(200).json({});
+})
 
-
+app.post('/delete', async function requestHandler(req, res){
+    wss.clients.forEach(client => {
+        if (client.eventId === req.body.event.id){
+            client.send(JSON.stringify({
+                type: "delete",
+                emergency: req.body.emergency
+            }));
+        }
+    });
+    res.status(200).json({});
 })
 
 wss.on('connection', function (w){
@@ -53,7 +42,6 @@ wss.on('connection', function (w){
         w.eventId = e.data;
     }
 })
-
 
 server.listen(1337, function () {
     console.log('Server running')
