@@ -24,9 +24,14 @@ export default function AddEvent(){
                 description: formData.get("description") as string,
                 location: formData.get("location") as string,
                 admins: {
-                    connect: {
-                        email: session.user.email
-                    }
+                    connect: [
+                        {
+                            email: session.user.email
+                        },
+                        ...((formData.get("admins") as string).split(",").map(a => {
+                            return {email: a};
+                        }))
+                    ]
                 }
             }
         })
