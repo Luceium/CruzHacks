@@ -1,6 +1,7 @@
 import { Event, User } from "@prisma/client";
 import UserList from "./userList";
 import { addAdmin, addUser, removeAdmin, removeUser } from "@/app/actions";
+import QRCodeComponent from "@/components/QRCode";
 
 const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
   return (
@@ -16,16 +17,16 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
 
       {/* Middle Column */}
       <div className="col-span-2 flex flex-col">
-        <div className="flex flex-col h-[50%] gap-2">
-          <div className="text-center tracking-tight text-primary text-4xl font-extrabold">
-            {event.title}
+        <div className="flex flex-col h-[50%] gap-2 text-center">
+          <div className="flex justify-center text-center gap-2">
+            <div className="text-center tracking-tight text-primary text-4xl font-extrabold">
+              {event.title}
+            </div>
+            <QRCodeComponent size={40}/>
           </div>
           <div className="text-center tracking-tight text-primary text-2xl">
             Location: {event.location}
           </div>
-        </div>
-        <div>
-
         </div>
       </div>
 
