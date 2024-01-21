@@ -26,5 +26,5 @@ export default async function Page({ params }: { params: { id: string} }) {
    const users = eventData.users
    const isAdmin = admins.some(a => a.email == user.email)
 
-   return (isAdmin ? <AdminEvent admins={admins} users={users} event={eventData}/> : <UserEvent event={eventData} user={user} />);
+   return (isAdmin ? <AdminEvent admins={admins} users={users} user={user} event={eventData}/> : <UserEvent event={eventData} user={user} />);
   }

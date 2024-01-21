@@ -12,9 +12,10 @@ async function getEvents() {
 type Props = {
   event: Event;
   joined: boolean;
+  admin: boolean;
 }
 
-const EventComponent = ({ event, joined }: Props) => {
+const EventComponent = ({ event, joined, admin}: Props) => {
   return(
       <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 rounded-lg gap-2 text-primary-content justify-center items-center">
         <div className="flex flex-col col-span-3">
@@ -27,7 +28,7 @@ const EventComponent = ({ event, joined }: Props) => {
         </div>
         <Link href={`/events/${event.id}`}>
           <button className="btn btn-secondary md:w-24 col-span-2">
-            {joined ? "View" : "Join"} Event
+            {admin ? "Manage" : (joined ? "View" : "Join")} Event
           </button>
         </Link>
         <div className="truncate col-span-5">
@@ -51,7 +52,7 @@ export default async function Home() {
         w-[90%] md:w-[80%] grid md:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] p-4">
         {events.length > 0 ? (
           events.map((event) => (
-            <EventComponent key={event.id} joined={event.userIds.includes(userInfo.id)} event={event}/>
+            <EventComponent key={event.id} joined={event.userIds.includes(userInfo.id)} admin={event.adminIds.includes(userInfo.id)} event={event}/>
           ))
         ) : (
           <div className="flex flex-col col-span-3">

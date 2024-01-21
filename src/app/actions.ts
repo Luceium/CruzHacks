@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import { z } from 'zod'
 import { redirect } from 'next/navigation'
 import { getSession } from '@auth0/nextjs-auth0';
+import { Event, User } from '@prisma/client';
 
 
 const schema = z.object({
@@ -57,4 +58,24 @@ export async function updateAccount(prevState: any, formData : FormData) {
     }
 
     return {...prevState, errors: "", refresh: true};
+}
+
+export async function addAdmin(event: Event, email: string) {
+    return await prisma.event.update({
+        'where' : {id : event.id},
+        'data' : {admins: {connect: {email}}},
+        include: {
+            admins: true
+        }
+    });
+}
+
+export async function removeAdmin(event: Event, email: string) {
+    return await prisma.event.update({
+        'where' : {id : event.id},
+        'data' : {admins: {disconnect: {email}}},
+        include: {
+            admins: true
+        }
+    });
 }

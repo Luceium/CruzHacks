@@ -1,6 +1,9 @@
+import MultiInput from "@/components/MultiInput";
+import prisma from "@/lib/prisma";
 import { Event, User } from "@prisma/client";
+import AdminList from "./adminList";
 
-const AdminEvent = ({admins, users, event}: {admins: User[], users: User[], event: Event}) => {
+const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
   return (
     <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-4">
 
@@ -36,15 +39,7 @@ const AdminEvent = ({admins, users, event}: {admins: User[], users: User[], even
       {/* Right Column */}
       <div className="col-span-1 flex flex-col gap-4 justify-center">
         <div className="text-center tracking-tight text-gray-700 text-2xl">Admins</div>
-        <div className="bg-gray-700 rounded-lg shadow-md h-[45%] p-4">
-          {admins.map((admin) => {
-            return(
-              <div key={admin.email}>
-                {admin.email} - {admin.tel}
-              </div>
-            ) 
-          })}
-        </div>
+        <AdminList admins={admins} user={user} event={event}/>
         <div className="text-center tracking-tight text-gray-700 text-2xl">Medical Support</div>
         <div className="bg-gray-700 rounded-lg shadow-md h-[30%] p-4">
           {users.filter(user => user.medicalExp).map((user) => {
