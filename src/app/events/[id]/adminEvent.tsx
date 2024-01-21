@@ -6,6 +6,7 @@ import { addAdmin, addUser, deleteEmergency, removeAdmin, removeUser } from "@/a
 import { useEffect, useState } from "react";
 import QRCodeComponent from "@/components/QRCode";
 import dayjs from "dayjs";
+import classNames from "classnames";
 
 type Emergency = _Emergency & {
   user: User
@@ -75,7 +76,9 @@ const AdminEvent = ({admins, users: _users, emergencies: _emergencies, event}: {
               }
               return new Date(b.time).getTime() - new Date(a.time).getTime();
             }).map((emergency) => {
-              return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
+              return <div key={emergency.id} className={classNames("bg-gray-700 text-left p-4 rounded-lg relative", {
+                "animate-notification": !_emergencies.includes(emergency)
+              })}>
                 <button className="float-right" disabled={deleting} onClick={async () => {
                   if (!deleting) {
                     setDeleting(true);
