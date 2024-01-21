@@ -67,7 +67,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
               if (a.type === "EMERGENCY" && b.type === "HELP") {
                 return -1;
               }
-              return b.time.getTime() - a.time.getTime();
+              return new Date(b.time).getTime() - new Date(a.time).getTime();
             }).map((emergency) => {
               return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
                 <button className="float-right" onClick={async () => {
