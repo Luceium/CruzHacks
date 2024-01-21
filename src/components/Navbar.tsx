@@ -22,8 +22,8 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="flex flex-col md:flex-row gap-2 my-4 md:my-0">
-                <a>Link 1</a>
-                <a>Link 2</a>
+                <Link className="mr-2" href="/addEvent">Create Event</Link>
+                <Link href="/account">Update Profile</Link>
             </div>
             <div>
                 {isLoading ? 
