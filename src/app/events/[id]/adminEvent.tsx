@@ -51,8 +51,7 @@ const AdminEvent = ({admins, users: _users, emergencies: _emergencies, event}: {
       {/* Left Column */}
       <div className="col-span-1 flex-col hidden md:flex mt-28">
         <div className="flex flex-col gap-4 min-h-96">
-          <div className="text-center tracking-tight text-gray-700 text-2xl">Attendees ({users.length})</div>
-          <UserList users={users} event={event} add={addUser} remove={removeUser}/>
+          <UserList title="Attendees" users={users} event={event} add={addUser} remove={removeUser}/>
         </div>
       </div>
 
@@ -102,8 +101,7 @@ const AdminEvent = ({admins, users: _users, emergencies: _emergencies, event}: {
       {/* Right Column */}
       <div className="col-span-1 hidden md:flex flex-col mt-28 gap-4">
         <div className="flex flex-col gap-4 min-h-96">
-          <div className="text-center tracking-tight text-gray-700 text-2xl">Admins ({admins.length})</div>
-          <UserList users={admins} event={event} add={addAdmin} remove={removeAdmin}/>
+          <UserList title="Admins" users={admins} event={event} add={addAdmin} remove={removeAdmin}/>
         </div>
         <div>
           <div className="flex flex-col gap-4 min-h-96">

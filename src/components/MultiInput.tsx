@@ -49,7 +49,9 @@ export default function MultiInput(props: Props) {
                 <button className="ml-3 hover:text-secondary hover:text-lg" type="button" onClick={() => {
                     const newValue = value.filter((_, j) => j !== i);
                     props.onRemove?.(v);
-                    setValue(newValue);
+                    if (!props.dontUpdateImmediately) {
+                        setValue(newValue);
+                    }
                     props.onChange?.(newValue)
                 }}>x</button>
             </div>)}
