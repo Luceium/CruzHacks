@@ -1,4 +1,4 @@
-"use client"
+import Emergency from '@/components/Emergency'
 import prisma from '@/lib/prisma'
 import { Event, User } from '@prisma/client'
 import React from 'react'
@@ -16,27 +16,9 @@ const UserEvent = async (props : {user: User, event : Event}) => {
       }
     })
   }
-  async function emergency(){
-    const req = {
-      id:props.event.id,
-      type:"emergency"
-    }
-    const url = "http://localhost:1337"
-
-    const res = await( await fetch(url, {
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(req),
-      method: "POST"
-    })).json();
-  }
-
   return (
     <div className='py-20'>
-      <button className = "bg-red-500" onClick={emergency}>
-        Emergency
-      </button>
+      <Emergency user={props.user} event={props.event}/>
     </div>
   )
 }
