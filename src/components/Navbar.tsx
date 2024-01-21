@@ -11,11 +11,11 @@ export default function Navbar() {
     const [toggled, setToggled] = useState(false);
     const {user, isLoading} = useUser();
     return (
-        <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-2 md:py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
+        <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-2 md:py-6 pb-6 transition-all duration-200 ease-in-out", {"max-h-screen md:max-h-16": toggled, "max-h-16": !toggled})}>
             <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <Link href="/">
-                        <Image src={slugNurse} alt="" className="w-12 h-12 md:w-16 md:h-16" width="64" height="64"/>
+                        <Image src={slugNurse} alt="logo" className="w-12 h-12" width="64" height="64"/>
                     </Link>
                     <span className="text-2xl font-bold">Safe and Slug</span>
                 </div>

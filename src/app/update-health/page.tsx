@@ -4,14 +4,14 @@ import { useFormState } from 'react-dom'
 import { updateHealth } from '../actions'
 import { useRouter } from 'next/navigation'
 
-export default (props : any) => {
+export default function UpdateHealth (props : any) {
   const [state, formAction] = useFormState(updateHealth, {
     errors: "",
     softRedirect: props.softRedirect,
     refresh: false
   })
+  const router = useRouter()
   if (state.refresh) {
-    const router = useRouter()
     router.refresh()
   }
 
@@ -22,7 +22,7 @@ export default (props : any) => {
           <form className='flex flex-col gap-4' action={formAction}>
             <input required type="text" name='name' placeholder="Full Name" autoComplete='name' className="input input-bordered w-full text-base-content" />
             <input required type="tel" name='tel' placeholder="Phone number. Ex. 101-111-1111" autoComplete='tel' className="input input-bordered w-full text-base-content" />
-            <select required defaultValue="Blood Type" name='bloodType' className="select text-base-content w-full text-base-content">
+            <select required defaultValue="Blood Type" name='bloodType' className="select text-base-content w-full">
               <option disabled>Blood Type</option>
               <option value='UNKNOWN'>Unknown</option>
               <option value='OPOSITIVE'>O+</option>
