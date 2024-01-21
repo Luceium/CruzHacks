@@ -62,7 +62,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
             Location: {event.location}
           </div>
           <div className="flex flex-col gap-3 mt-16 px-8">
-            {emergencies.sort((a, b) => {
+            {[...emergencies].sort((a, b) => {
               // Emergencies before Report and recent before old
               if (a.type === "EMERGENCY" && b.type === "HELP") {
                 return -1;
