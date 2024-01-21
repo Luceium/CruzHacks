@@ -23,11 +23,6 @@ export default function AddEvent(){
                 title: formData.get("title") as string,
                 description: formData.get("description") as string,
                 location: formData.get("location") as string,
-                users: {
-                    connect: {
-                        email: session.user.email
-                    }
-                },
                 admins: {
                     connect: {
                         email: session.user.email
