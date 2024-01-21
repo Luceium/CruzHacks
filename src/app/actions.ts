@@ -17,7 +17,8 @@ const schema = z.object({
         z.literal("ANEGATIVE"),
         z.literal("BPOSITIVE"),
         z.literal("BNEGATIVE"),
-        z.literal("AB"),
+        z.literal("ABPOSTIVE"),
+        z.literal("ABNEGATIVE"),
         z.literal("UNKNOWN")
     ]),
     additionalInfo : z.optional(z.string()),

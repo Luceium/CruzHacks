@@ -33,7 +33,8 @@ export default function UpdateAccountForm (props : Props) {
                 <option value='UNKNOWN'>Unknown</option>
                 <option value='OPOSITIVE'>O+</option>
                 <option value='ONEGATIVE'>O-</option>
-                <option value='AB'>AB</option>
+                <option value='ABPOSTIVE'>AB+</option>
+                <option value='ABNEGATIVE'>AB-</option>
                 <option value='APOSITIVE'>A+</option>
                 <option value='ANEGATIVE'>A-</option>
                 <option value='BPOSITIVE'>B+</option>
