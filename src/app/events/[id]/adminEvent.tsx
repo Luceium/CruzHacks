@@ -62,7 +62,12 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
             Location: {event.location}
           </div>
           <div className="flex flex-col gap-3 mt-16 px-8">
-            {emergencies.map((emergency) => {
+            {emergencies.sort((a, b) => {
+              if (a.type === "EMERGENCY" && b.type === "HELP") {
+                return -1;
+              }
+              return a.time.getTime() - b.time.getTime();
+            }).map((emergency) => {
               return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
                 <p><span className="font-bold">Reporter</span>: {emergency.user.name}</p> 
                 <p><span className="font-bold">Phone</span>: {emergency.user.tel}</p> 
