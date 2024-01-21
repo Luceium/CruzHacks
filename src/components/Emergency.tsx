@@ -3,13 +3,13 @@
 import { Event, User } from "@prisma/client";
 
 
-
 export default function Emergency(props: {user: User, event: Event}) {
     async function emergency(){
         const req = {
           userId:props.user.id,
           eventId:props.event.id,
-          type:"emergency"
+          type:"EMERGENCY",
+          sound: (window as any).customSound as string
         }
         const url = "http://localhost:1337"
     

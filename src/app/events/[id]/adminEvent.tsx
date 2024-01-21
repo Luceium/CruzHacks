@@ -9,13 +9,20 @@ import QRCodeComponent from "@/components/QRCode";
 const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:1337');
-    ws.onopen = () => console.log("ws opened")
-    console.log(1);
+
+    ws.onopen = () =>{
+      ws.send(event.id);
+    }
     ws.onmessage = (event) => {
-      console.log(event)
+      const data = JSON.parse(event.data);
+
+      var audio = new Audio(data.sound);
+      audio.play();
     };
+
     return () => ws.close();
   }, [])
+
   return (
     <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-4">
 
