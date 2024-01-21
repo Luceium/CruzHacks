@@ -8,8 +8,8 @@ import React, { useState } from 'react'
 const UserList = ({users: _users, event, add, remove}: {users: User[], event: Event, add: (event: Event, email: string) => Promise<User[]>, remove: (event: Event, email: string) => Promise<User[]>}) => {
   const [users, setUsers] = useState(_users);
   return (
-    <div className="bg-gray-700 rounded-lg shadow-md h-[45%] p-4">
-        <MultiInput className='text-base-content' initialValue={users.map(u => u.email)} onAdd={async (email) => {
+    <div className="bg-gray-700 rounded-lg shadow-md h-full">
+        <MultiInput className='text-base-content m-4' initialValue={users.map(u => u.email)} onAdd={async (email) => {
             const newUsers = await add(event, email);
             setUsers(newUsers);
           }} onRemove={async (email) => {

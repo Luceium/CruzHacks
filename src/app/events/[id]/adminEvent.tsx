@@ -1,12 +1,18 @@
 "use client"
 
-import { Event, User } from "@prisma/client";
+import { Emergency as _Emergency, Event, User } from "@prisma/client";
 import UserList from "./userList";
 import { addAdmin, addUser, removeAdmin, removeUser } from "@/app/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import QRCodeComponent from "@/components/QRCode";
+import dayjs from "dayjs";
 
-const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
+type Emergency = _Emergency & {
+  user: User
+}
+
+const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: User[], users: User[], emergencies: Emergency[], event: Event}) => {
+  const [emergencies, setEmergencies] = useState(_emergencies)
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:1337');
 
@@ -18,6 +24,8 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
 
       var audio = new Audio(data.sound);
       audio.play();
+
+      setEmergencies(emergencies => [...emergencies, data.emergency])
     };
 
     return () => ws.close();
@@ -27,10 +35,10 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
     <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-4">
 
       {/* Left Column */}
-      <div className="col-span-1 flex-col justify-center hidden md:flex">
-        <div className="text-center tracking-tight text-gray-700 text-2xl">Attendees</div>
-        <div className="bg-gray-700 rounded-lg shadow-md h-[90%]">
-        <UserList users={users} event={event} add={addUser} remove={removeUser}/>
+      <div className="col-span-1 flex-col hidden md:flex mt-28">
+        <div className="flex flex-col gap-4 min-h-96">
+          <div className="text-center tracking-tight text-gray-700 text-2xl">Attendees</div>
+          <UserList users={users} event={event} add={addUser} remove={removeUser}/>
         </div>
       </div>
 
@@ -46,22 +54,37 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
           <div className="text-center tracking-tight text-primary text-2xl">
             Location: {event.location}
           </div>
+          <div className="flex flex-col gap-3 mt-16 px-8">
+            {emergencies.map((emergency, i) => {
+              return <div key={i} className="bg-gray-700 text-left p-4 rounded-lg">
+                <p><span className="font-bold">Reporter</span>: {emergency.user.name}</p> 
+                <p><span className="font-bold">Phone</span>: {emergency.user.tel}</p> 
+                <p><span className="font-bold">Time</span>: {dayjs(emergency.time).format("MMMM D, YYYY, h:mm A")}</p> 
+              </div>
+            })}
+          </div>
         </div>
       </div>
 
       {/* Right Column */}
-      <div className="col-span-1 hidden md:flex flex-col gap-4 justify-center">
-        <div className="text-center tracking-tight text-gray-700 text-2xl">Admins</div>
-        <UserList users={admins} event={event} add={addAdmin} remove={removeAdmin}/>
-        <div className="text-center tracking-tight text-gray-700 text-2xl">Medical Support</div>
-        <div className="bg-gray-700 rounded-lg shadow-md h-[30%] p-4">
-          {users.filter(user => user.medicalExp).map((user) => {
-            return(
-              <div key={user.email}>
-                {user.email} - {user.tel}
-              </div>
-            ) 
-          })}
+      <div className="col-span-1 hidden md:flex flex-col mt-28 gap-4">
+        <div className="flex flex-col gap-4 min-h-96">
+          <div className="text-center tracking-tight text-gray-700 text-2xl">Admins</div>
+          <UserList users={admins} event={event} add={addAdmin} remove={removeAdmin}/>
+        </div>
+        <div>
+          <div className="flex flex-col gap-4 min-h-96">
+            <div className="text-center tracking-tight text-gray-700 text-2xl">Medical Support</div>
+            <div className="bg-gray-700 rounded-lg shadow-md p-4">
+              {users.filter(user => user.medicalExp).map((user) => {
+                return(
+                  <div key={user.email}>
+                    {user.email} - {user.tel}
+                  </div>
+                ) 
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ const server = http.createServer(app)
 const wss = new WebSocket.Server({server});
 
 app.post('/', async function requestHandler(req, res){
-    await prisma.emergency.create({
+    const newEmergency = await prisma.emergency.create({
         data: {
             user: {
                 connect: {
@@ -28,14 +28,15 @@ app.post('/', async function requestHandler(req, res){
             },
             time: new Date(),
             type: req.body.type
+        },
+        include: {
+            user: true
         }
     })
     wss.clients.forEach(client => {
         if (client.eventId === req.body.eventId){
             client.send(JSON.stringify({
-                eventId: req.body.eventId,
-                userId: req.body.userId,
-                type: req.body.type,
+                emergency: newEmergency,
                 sound: req.body.sound
             }));
         }
