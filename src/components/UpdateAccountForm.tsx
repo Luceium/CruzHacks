@@ -43,7 +43,7 @@ export default function UpdateAccountForm (props : Props) {
               <div className="form-control">
                 <label className="label cursor-pointer">
                   <span className="label-text text-base-content">Do you have any medical experience and are willing to help out?</span> 
-                  <input type="checkbox" name="medicalExp" className="checkbox checkbox-primary" defaultChecked={props.initialValues?.medicalExp}  />
+                  <input type="checkbox" name="medicalExp" className="checkbox checkbox-primary" defaultChecked={props.initialValues?.medicalExp as boolean}  />
                 </label>
               </div>
               <button className='btn' type="submit">
