@@ -27,11 +27,11 @@ const EventComponent = ({ event, joined, admin}: Props) => {
             {event.location}
           </div>
         </div>
-        <Link href={`/events/${event.id}`}>
+        <a href={`/events/${event.id}`}>
           <button className="btn btn-secondary md:w-24 col-span-2">
             {admin ? "Manage" : (joined ? "View" : "Join")} Event
           </button>
-        </Link>
+        </a>
         <EventModal event={event}/>
       </div>
   )
