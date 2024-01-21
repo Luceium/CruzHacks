@@ -32,7 +32,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
   }, [])
 
   return (
-    <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-4">
+    <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-2 md:grid-cols-4">
 
       {/* Left Column */}
       <div className="col-span-1 flex-col hidden md:flex mt-28">
