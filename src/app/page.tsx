@@ -3,6 +3,7 @@ import prisma from "../lib/prisma";
 import { Event } from "@prisma/client";
 import { getSession } from "@auth0/nextjs-auth0";
 import { getUserByEmail } from "@/util/getUserByEmail";
+import EventModal from "../components/EventModal";
 
 async function getEvents() {
   const events = await prisma.event.findMany();
@@ -30,9 +31,7 @@ const EventComponent = ({ event, joined }: Props) => {
             {joined ? "View" : "Join"} Event
           </button>
         </Link>
-        <div className="truncate col-span-5">
-          {event.description}
-        </div>
+        <EventModal event={event}/>
       </div>
   )
 }
