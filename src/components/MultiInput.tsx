@@ -25,7 +25,7 @@ export default function MultiInput(props: Props) {
             <input className="hidden" name={props.name} value={value.join(",")} readOnly />
             <input className='input flex-1 min-w-0' type={props.type} placeholder={props.placeholder} value={nextValue} onChange={e => setNextValue(e.target.value)}/>
             <button className="btn" type="button" onClick={() => {
-                const newValue = [...value, nextValue];
+                const newValue = [nextValue, ...value];
                 props.onAdd?.(nextValue);
                 setValue(newValue);
                 setNextValue("");
