@@ -1,7 +1,8 @@
 import prisma from "@/lib/prisma"
 import AdminEvent from "./adminEvent"
 import UserEvent from "./userEvent"
-import { getSession } from "@auth0/nextjs-auth0"
+import { Session, getSession } from "@auth0/nextjs-auth0"
+import { getUserByEmail } from "@/util/getUserByEmail"
 
 export default async function Page({ params }: { params: { id: string} }) {
     const id = params.id
@@ -19,10 +20,11 @@ export default async function Page({ params }: { params: { id: string} }) {
         return false    
     }
 
-   const email = (await getSession())!.user.email
+   const session : Session = (await getSession())!
+   const user = (await getUserByEmail(session.user.email))!
    const admins = eventData.admins
    const users = eventData.users
-   const isAdmin = admins.some(a => a.email == email)
+   const isAdmin = admins.some(a => a.email == user.email)
 
-   return (isAdmin ? <AdminEvent admins={admins} users={users} event={eventData}/> : <UserEvent/>);
+   return (isAdmin ? <AdminEvent admins={admins} users={users} event={eventData}/> : <UserEvent event={eventData} user={user} />);
   }

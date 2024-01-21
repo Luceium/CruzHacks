@@ -11,8 +11,7 @@ const AdminEvent = ({admins, users, event}: {admins: User[], users: User[], even
           {users.map((user) => {
               return(
                 <div key={user.email}>
-                  <div>{user.email}</div>
-                  {user.tel}
+                  {user.email} - {user.tel}
                 </div>
               ) 
             })}
@@ -41,19 +40,17 @@ const AdminEvent = ({admins, users, event}: {admins: User[], users: User[], even
           {admins.map((admin) => {
             return(
               <div key={admin.email}>
-                {admin.email}
-                {admin.tel}
+                {admin.email} - {admin.tel}
               </div>
             ) 
           })}
         </div>
         <div className="text-center tracking-tight text-gray-700 text-2xl">Medical Support</div>
         <div className="bg-gray-700 rounded-lg shadow-md h-[30%] p-4">
-          {admins.map((admin) => {
+          {users.filter(user => user.medicalExp).map((user) => {
             return(
-              <div key={admin.email}>
-                {admin.email}
-                {admin.tel}
+              <div key={user.email}>
+                {user.email} - {user.tel}
               </div>
             ) 
           })}
