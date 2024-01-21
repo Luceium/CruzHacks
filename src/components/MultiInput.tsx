@@ -18,9 +18,9 @@ export default function MultiInput(props: Props) {
     const [value, setValue] = useState(props.initialValue ?? []);
     const [nextValue, setNextValue] = useState("");
     return <div className={className("form-control", props.className)}>
-        <div className="input-group flex flex-wrap justify-between gap-2">
+        <div className="input-group flex w-full justify-between gap-2">
             <input className="hidden" name={props.name} value={value.join(",")} />
-            <input className='input input-large' type={props.type} placeholder={props.placeholder} value={nextValue} onChange={e => setNextValue(e.target.value)}/>
+            <input className='input flex-1 min-w-0' type={props.type} placeholder={props.placeholder} value={nextValue} onChange={e => setNextValue(e.target.value)}/>
             <button className="btn" type="button" onClick={() => {
                 const newValue = [...value, nextValue];
                 props.onAdd?.(nextValue);
