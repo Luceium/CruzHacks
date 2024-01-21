@@ -1,14 +1,20 @@
 import Link from "next/link";
 import prisma from "../lib/prisma";
 import { Event } from "@prisma/client";
-import Enforce from "@/util/enforce";
+import { getSession } from "@auth0/nextjs-auth0";
+import { getUserByEmail } from "@/util/getUserByEmail";
 
 async function getEvents() {
   const events = await prisma.event.findMany();
   return events;
 }
 
-const EventComponent = (event : Event) => {
+type Props = {
+  event: Event;
+  joined: boolean;
+}
+
+const EventComponent = ({ event, joined }: Props) => {
   return(
       <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 rounded-lg gap-2 text-primary-content justify-center items-center">
         <div className="flex flex-col col-span-3">
@@ -21,7 +27,7 @@ const EventComponent = (event : Event) => {
         </div>
         <Link href={`/events/${event.id}`}>
           <button className="btn btn-secondary md:w-24 col-span-2">
-            Join Event
+            {joined ? "View" : "Join"} Event
           </button>
         </Link>
         <div className="truncate col-span-5">
@@ -32,6 +38,8 @@ const EventComponent = (event : Event) => {
 }
 
 export default async function Home() {
+  const email = (await getSession())!.user.email;
+  const userInfo = (await getUserByEmail(email))!;
   const events = await getEvents();
 
   return (
@@ -43,7 +51,7 @@ export default async function Home() {
         w-[90%] md:w-[80%] grid md:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] p-4">
         {events.length > 0 ? (
           events.map((event) => (
-            <EventComponent key={event.id} {...event}/>
+            <EventComponent key={event.id} joined={event.userIds.includes(userInfo.id)} event={event}/>
           ))
         ) : (
           <div className="flex flex-col col-span-3">
