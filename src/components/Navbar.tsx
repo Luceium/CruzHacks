@@ -3,7 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import classNames from "classnames";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import slugNurse from "../../assets/safeandslug.png"
+import slug from "../../assets/safeandslug.png"
 import Image from "next/image"
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export default function Navbar() {
         <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
             <div className="flex justify-between">
                 <Link href="/">
-                    <Image src={slugNurse} alt="" className="w-8 h-8 md:w-16 md:h-16" width="64" height="64"/>
+                    <Image src={slug} alt="" className="w-8 h-8 p-2 md:w-16 md:h-16" width="64" height="64"/>
                 </Link>
                 <div className="inline md:hidden" onClick={() => setToggled(!toggled)}>
                     <IoMenu className="h-8 w-8"/>
