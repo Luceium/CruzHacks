@@ -33,7 +33,7 @@ export default function QRCodeComponent({size} : {size: number}) {
       <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${pathname}&amp;size=${size}x${size}`} alt="" width={size} height={size} priority unoptimized={true}/>
       {<dialog ref={ref} className={classNames("modal", {"modal-open": isToggled})}>
           <div className="modal-box h-fit bg-white text-center">
-            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${pathname}&amp;size=${size}x${size}`} alt="" width="500" height="500"/>
+            <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${pathname}&amp;size=${size}x${size}`} alt="" width="500" height="500"/>
           </div>
       </dialog>}
     </button>

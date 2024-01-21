@@ -21,7 +21,7 @@ export default function Navbar() {
                     <IoMenu className="h-8 w-8"/>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-2 my-4 md:my-0">
+            <div className="flex flex-col md:flex-row gap-8 my-4 md:my-0">
                 <Link href="/">Home</Link>
                 <Link className="mx-2" href="/addEvent">Create Event</Link>
                 <Link href="/account">Update Profile</Link>
