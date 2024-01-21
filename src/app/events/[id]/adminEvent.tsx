@@ -14,7 +14,7 @@ type Emergency = _Emergency & {
 const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: User[], users: User[], emergencies: Emergency[], event: Event}) => {
   const [emergencies, setEmergencies] = useState(_emergencies)
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:1337');
+    const ws = new WebSocket("wss://elastic-groovy-dietician.glitch.me");
 
     ws.onopen = () =>{
       ws.send(event.id);
