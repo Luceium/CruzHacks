@@ -22,7 +22,8 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="flex flex-col md:flex-row gap-2 my-4 md:my-0">
-                <Link className="mr-2" href="/addEvent">Create Event</Link>
+                <Link href="/">Home</Link>
+                <Link className="mx-2" href="/addEvent">Create Event</Link>
                 <Link href="/account">Update Profile</Link>
             </div>
             <div>
