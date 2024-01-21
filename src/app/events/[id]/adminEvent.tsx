@@ -1,8 +1,20 @@
+"use client"
+
 import { Event, User } from "@prisma/client";
 import UserList from "./userList";
 import { addAdmin, addUser, removeAdmin, removeUser } from "@/app/actions";
+import { useEffect } from "react";
 
 const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:1337');
+    ws.onopen = () => console.log("ws opened")
+    console.log(1);
+    ws.onmessage = (event) => {
+      console.log(event)
+    };
+    return () => ws.close();
+  }, [])
   return (
     <div className="min-h-[calc(100vh)] pt-24 px-10 pb-10 grid grid-cols-4">
 
