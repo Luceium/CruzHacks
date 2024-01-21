@@ -19,10 +19,15 @@ const schema = z.object({
         z.literal("AB"),
         z.literal("UNKNOWN")
     ]),
-    additionalInfo : z.optional(z.string())
+    additionalInfo : z.optional(z.string()),
+    medicalExp: z.union([
+        z.literal("on"),
+        z.literal("off"),
+        z.null()
+    ])
 })
 
-export async function updateHealth(prevState: any, formData : FormData) {
+export async function updateAccount(prevState: any, formData : FormData) {
     const {user} = (await getSession())!
 
     const validatedFields = schema.safeParse({
@@ -30,7 +35,8 @@ export async function updateHealth(prevState: any, formData : FormData) {
         tel : formData.get('tel'),
         email : user.email,
         bloodType : formData.get('bloodType'),
-        additionalInfo : formData.get('additionalInfo')
+        additionalInfo : formData.get('additionalInfo'),
+        medicalExp: formData.get('medicalExp')
     })
 
     if (!validatedFields.success) {
@@ -39,11 +45,11 @@ export async function updateHealth(prevState: any, formData : FormData) {
         }
     }
 
-    console.log(validatedFields.data)
+    const finalFields = {...validatedFields.data, medicalExp: validatedFields.data.medicalExp === "on"};
     await prisma.user.upsert({
         where: {email: user.email},
-        update: validatedFields.data,
-        create: validatedFields.data
+        update: finalFields,
+        create: finalFields
     })
 
     if (!prevState.softRedirect) {
