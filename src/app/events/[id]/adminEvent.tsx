@@ -13,6 +13,7 @@ type Emergency = _Emergency & {
 
 const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: User[], users: User[], emergencies: Emergency[], event: Event}) => {
   const [emergencies, setEmergencies] = useState(_emergencies)
+  const [deleting, setDeleting] = useState(false);
   useEffect(() => {
     const ws = new WebSocket("wss://elastic-groovy-dietician.glitch.me");
 
@@ -70,9 +71,13 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
               return new Date(b.time).getTime() - new Date(a.time).getTime();
             }).map((emergency) => {
               return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
-                <button className="float-right" onClick={async () => {
-                  await deleteEmergency(emergency, event)
-                  setEmergencies(emergencies => emergencies.filter(e => e.id !== emergency.id))
+                <button className="float-right" disabled={deleting} onClick={async () => {
+                  if (!deleting) {
+                    setDeleting(true);
+                    await deleteEmergency(emergency, event)
+                    setEmergencies(emergencies => emergencies.filter(e => e.id !== emergency.id))
+                    setDeleting(false);
+                }
                 }}>
                   X
                 </button>
