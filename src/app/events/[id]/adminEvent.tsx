@@ -67,6 +67,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
                 <p><span className="font-bold">Reporter</span>: {emergency.user.name}</p> 
                 <p><span className="font-bold">Phone</span>: {emergency.user.tel}</p> 
                 <p><span className="font-bold">Time</span>: {dayjs(emergency.time).format("MMMM D, YYYY, h:mm A")}</p> 
+                <p><span className="font-bold">Message</span>: {emergency.message}</p>
               </div>
             })}
           </div>

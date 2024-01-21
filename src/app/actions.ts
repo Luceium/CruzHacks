@@ -99,7 +99,7 @@ export async function addUser(event: Event, email: string) {
     })).users;
 }
 
-export async function createEmergency(user: User, event: Event, type: StatusType){
+export async function createEmergency(user: User, event: Event, type: StatusType, message: string){
     const newEmergency = await prisma.emergency.create({
         data: {
             user: {
@@ -113,7 +113,8 @@ export async function createEmergency(user: User, event: Event, type: StatusType
                 }
             },
             time: new Date(),
-            type
+            type,
+            message
         },
         include: {
             user: true

@@ -46,6 +46,7 @@ model Emergency {
   event Event @relation(fields: [eventId], references: [id])
   time DateTime
   type StatusType?
+  message String
 }
 
 enum BloodType{

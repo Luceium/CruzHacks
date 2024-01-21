@@ -1,4 +1,4 @@
-import Emergency from '@/components/Emergency'
+import UserEventManager from '@/components/UserEventManager'
 import prisma from '@/lib/prisma'
 import { Event, User } from '@prisma/client'
 import React from 'react'
@@ -18,7 +18,7 @@ const UserEvent = async (props : {user: User, event : Event}) => {
   }
   return (
     <div className='py-20'>
-      <Emergency user={props.user} event={props.event}/>
+      <UserEventManager user={props.user} event={props.event}/>
     </div>
   )
 }
