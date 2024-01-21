@@ -36,11 +36,11 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center min-h-[calc(100vh)] py-24">
-      <h2 className="p-8 md:p-12 text-4xl text-center font-extrabold tracking-tight text-gray-700 font-outline-2 lg:text-4xl">
+      <h2 className="p-8 md:p-12 text-4xl text-center font-extrabold tracking-tight text-gray-700 lg:text-4xl">
         Slug it Out at Your Next Event...
       </h2>
       <div className="bg-gray-700 rounded-lg shadow-md
-        w-[90%] md:w-[80%] grid md:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] max-h-[55vh] p-4">
+        w-[90%] md:w-[80%] grid md:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] p-4">
         {events.length > 0 ? (
           events.map((event) => (
             <EventComponent key={event.id} {...event}/>

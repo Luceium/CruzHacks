@@ -13,9 +13,12 @@ export default function Navbar() {
     return (
         <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
             <div className="flex justify-between">
-                <Link href="/">
-                    <Image src={slugNurse} alt="" className="w-8 h-8 md:w-16 md:h-16" width="64" height="64"/>
-                </Link>
+                <div className="flex gap-2 items-center">
+                    <Link href="/">
+                        <Image src={slugNurse} alt="" className="w-8 h-8 md:w-16 md:h-16" width="64" height="64"/>
+                    </Link>
+                    <span className="text-2xl font-bold">Safe and Slug</span>
+                </div>
                 <div className="inline md:hidden" onClick={() => setToggled(!toggled)}>
                     <IoMenu className="h-8 w-8"/>
                 </div>

@@ -1,8 +1,10 @@
 import prisma from "@/lib/prisma"
+import AdminEvent from "./adminEvent"
+import UserEvent from "./userEvent"
 
 export default async function Page({ params }: { params: { id: string} }) {
     const id = params.id
-    const event = await prisma.event.findUnique({
+    const eventData = await prisma.event.findUnique({
         where: {
             id
         },
@@ -11,25 +13,14 @@ export default async function Page({ params }: { params: { id: string} }) {
             users: true
         }
     })
-    if (!event) {
+    if (!eventData) {
         console.log("Cannot find event")
         return false    
     }
 
-   const admins = event.admins
-   const users = event.users
+   const admins = eventData.admins
+   const users = eventData.users
+   const duh = true
 
-   return (
-    <div className="flex min-h-[calc(100vh)] p-24 grid grid-cols-4">
-        {users.map((user) => {
-          return(
-            <div>
-              {user.id}
-              {user.email}
-            </div>
-          ) 
-        })}
-    </div>
-  );
-
+   return (duh ? <AdminEvent admins={admins} users={users} event={eventData}/> : <UserEvent/>);
   }
