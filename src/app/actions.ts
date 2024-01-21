@@ -121,18 +121,20 @@ export async function createEmergency(user: User, event: Event, type: StatusType
         }
     });
 
-    const url = "http://localhost:1337/create"
-    await(await fetch(url, {
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sound: "",
-        emergency: newEmergency,
-        event
-        }),
-      method: "POST"
-    })).json();
+    try {
+        const url = "http://localhost:1337/create"
+        await(await fetch(url, {
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                sound: "",
+                emergency: newEmergency,
+                event
+                }),
+            method: "POST"
+        })).json();
+    } catch {}
     return newEmergency;
 }
 
@@ -143,16 +145,18 @@ export async function deleteEmergency(emergency: Emergency, event: Event){
         }
     });
 
-    const url = "http://localhost:1337/delete"
-    await(await fetch(url, {
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        emergency: oldEmergency,
-        event
-      }),
-      method: "POST"
-    })).json();
+    try {
+        const url = "http://localhost:1337/delete"
+        await(await fetch(url, {
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emergency: oldEmergency,
+                event
+            }),
+            method: "POST"
+        })).json();
+    } catch {}
     return oldEmergency;
 }
