@@ -2,7 +2,7 @@
 
 import { Emergency as _Emergency, Event, User } from "@prisma/client";
 import UserList from "./userList";
-import { addAdmin, addUser, removeAdmin, removeUser } from "@/app/actions";
+import { addAdmin, addUser, deleteEmergency, removeAdmin, removeUser } from "@/app/actions";
 import { useEffect, useState } from "react";
 import QRCodeComponent from "@/components/QRCode";
 import dayjs from "dayjs";
@@ -64,6 +64,11 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
           <div className="flex flex-col gap-3 mt-16 px-8">
             {emergencies.map((emergency) => {
               return <div key={emergency.id} className="bg-gray-700 text-left p-4 rounded-lg animate-notification relative">
+                <button className="float-right" onClick={async () => {
+                  await deleteEmergency(emergency, event)
+                }}>
+                  X
+                </button>
                 <p><span className="font-bold">Reporter</span>: {emergency.user.name}</p> 
                 <p><span className="font-bold">Phone</span>: {emergency.user.tel}</p> 
                 <p><span className="font-bold">Time</span>: {dayjs(emergency.time).format("MMMM D, YYYY, h:mm A")}</p> 
