@@ -1,7 +1,6 @@
-import MultiInput from "@/components/MultiInput";
-import prisma from "@/lib/prisma";
 import { Event, User } from "@prisma/client";
-import AdminList from "./adminList";
+import UserList from "./userList";
+import { addAdmin, addUser, removeAdmin, removeUser } from "@/app/actions";
 
 const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, users: User[], event: Event}) => {
   return (
@@ -11,13 +10,7 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
       <div className="col-span-1 flex flex-col justify-center">
         <div className="text-center tracking-tight text-gray-700 text-2xl">Attendees</div>
         <div className="bg-gray-700 rounded-lg shadow-md h-[90%]">
-          {users.map((user) => {
-              return(
-                <div key={user.email}>
-                  {user.email} - {user.tel}
-                </div>
-              ) 
-            })}
+        <UserList users={users} event={event} add={addUser} remove={removeUser}/>
         </div>
       </div>
 
@@ -39,7 +32,7 @@ const AdminEvent = ({admins, user, users, event}: {admins: User[], user: User, u
       {/* Right Column */}
       <div className="col-span-1 flex flex-col gap-4 justify-center">
         <div className="text-center tracking-tight text-gray-700 text-2xl">Admins</div>
-        <AdminList admins={admins} user={user} event={event}/>
+        <UserList users={admins} event={event} add={addAdmin} remove={removeAdmin}/>
         <div className="text-center tracking-tight text-gray-700 text-2xl">Medical Support</div>
         <div className="bg-gray-700 rounded-lg shadow-md h-[30%] p-4">
           {users.filter(user => user.medicalExp).map((user) => {

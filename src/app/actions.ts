@@ -61,21 +61,40 @@ export async function updateAccount(prevState: any, formData : FormData) {
 }
 
 export async function addAdmin(event: Event, email: string) {
-    return await prisma.event.update({
+    return (await prisma.event.update({
         'where' : {id : event.id},
         'data' : {admins: {connect: {email}}, users: {disconnect: {email}}},
         include: {
             admins: true
         }
-    });
+    })).admins;
 }
 
 export async function removeAdmin(event: Event, email: string) {
-    return await prisma.event.update({
+    return (await prisma.event.update({
         'where' : {id : event.id},
         'data' : {admins: {disconnect: {email}}},
         include: {
             admins: true
         }
-    });
+    })).admins;
+}
+export async function removeUser(event: Event, email: string) {
+    return (await prisma.event.update({
+        'where' : {id : event.id},
+        'data' : {users: {disconnect: {email}}},
+        include: {
+            users: true
+        }
+    })).users;
+}
+
+export async function addUser(event: Event, email: string) {
+    return (await prisma.event.update({
+        'where' : {id : event.id},
+        'data' : {users: {connect: {email}}},
+        include: {
+            users: true
+        }
+    })).users;
 }
