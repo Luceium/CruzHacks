@@ -16,9 +16,11 @@ export default function UserEventManager({user, event}: {user: User, event: Even
   }
 
   async function postIncident(message: string, type: StatusType){
-    setSubmitting(true)
-    await createEmergency(user, event, type, message)
-    setSubmitting(false)
+    if (!submitting){
+      setSubmitting(true)
+      await createEmergency(user, event, type, message)
+      setSubmitting(false)
+    }
   }
 
   return (

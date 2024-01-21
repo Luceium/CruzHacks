@@ -28,7 +28,7 @@ export default function AddEvent(){
                         {
                             email: session.user.email
                         },
-                        ...((formData.get("admins") as string).split(",").map(a => {
+                        ...((formData.get("admins") as string).split(",").filter(a => a).map(a => {
                             return {email: a};
                         }))
                     ]
