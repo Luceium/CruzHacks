@@ -25,7 +25,7 @@ const AdminEvent = ({admins, users, emergencies: _emergencies, event}: {admins: 
       var audio = new Audio(data.sound);
       audio.play();
 
-      setEmergencies(emergencies => [...emergencies, data.emergency])
+      setEmergencies(emergencies => [data.emergency, ...emergencies])
     };
 
     return () => ws.close();

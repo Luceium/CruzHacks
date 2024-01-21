@@ -14,6 +14,9 @@ export default async function Page({ params }: { params: { id: string} }) {
             admins: true,
             users: true,
             emergencies: {
+                orderBy: {
+                    time: "desc"
+                },
                 include: {
                     user: true
                 }
