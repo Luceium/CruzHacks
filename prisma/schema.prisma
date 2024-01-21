@@ -23,7 +23,7 @@ model User {
   events Event[] @relation(name: "attendees", fields: [eventIds], references:[id])
   adminEvents Event[] @relation(name: "admins", fields: [eventIds], references:[id])
   emergencies Emergency[]
-  medicalExp Boolean
+  medicalExp Boolean?
 }
 
 model Event {

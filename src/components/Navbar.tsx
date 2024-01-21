@@ -11,12 +11,13 @@ export default function Navbar() {
     const [toggled, setToggled] = useState(false);
     const {user, isLoading} = useUser();
     return (
-        <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-6 transition-all duration-200 ease-in-out", {"max-h-screen": toggled, "max-h-16": !toggled})}>
+        <nav className={classNames("bg-primary text-xl absolute top-0 w-full md:flex overflow-hidden md:justify-between md:items-center px-8 py-2 md:py-6 pb-6 transition-all duration-200 ease-in-out", {"max-h-screen md:max-h-16": toggled, "max-h-16": !toggled})}>
             <div className="flex justify-between">
-                <Link href="/">
-                    <Image src={slug} alt="" className="w-8 h-8 p-2 md:w-16 md:h-16" width="64" height="64"/>
-                </Link>
-                <div className="inline md:hidden" onClick={() => setToggled(!toggled)}>
+                    <Link className="flex gap-2 items-center" href="/">
+                        <Image src={slug} alt="logo" className="w-12 h-12 p-2" width="64" height="64"/>
+                        <span className="text-2xl font-bold">Safe and Slug</span>
+                    </Link>
+                <div className="flex items-center md:hidden" onClick={() => setToggled(!toggled)}>
                     <IoMenu className="h-8 w-8"/>
                 </div>
             </div>
@@ -28,7 +29,7 @@ export default function Navbar() {
                 {isLoading ? 
                     <div className="loading loading-spinner"></div> :
                     <div className="flex items-center gap-2 md:gap-4">
-                        {user?.picture && <img className="rounded-full h-8 md:h-12" src={user.picture}/>}
+                        {user?.picture && <Link href="/update-health"><img className="rounded-full h-8 md:h-12" src={user.picture}/></Link>}
                         <a href={user ? "/api/auth/logout" : "/api/auth/login"}>{user ? "Logout" : "Login"}</a>
                     </div>
                 }
