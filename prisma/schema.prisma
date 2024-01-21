@@ -46,7 +46,6 @@ model Emergency {
   event Event @relation(fields: [eventId], references: [id])
   time DateTime
   type StatusType?
-  isAddressed Boolean @default(false)
 }
 
 enum BloodType{
