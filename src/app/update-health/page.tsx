@@ -55,7 +55,7 @@ const Signup = () => {
             <input required type="text" name='name' placeholder="Full Name" autoComplete='name' className="input input-bordered w-full text-base-content" />
             <input required type="tel" name='tel' placeholder="Phone number. Ex. 101-111-1111" autoComplete='tel' className="input input-bordered w-full text-base-content" />
             <input required type="email" name='email' placeholder="Email" autoComplete='email' className="input input-bordered w-full text-base-content" />
-            <select required name='bloodType' className="select text-base-content w-full text-base-content">
+            <select required name='bloodType' className="select text-base-content w-full">
               <option disabled selected>Blood Type</option>
               <option value='UNKNOWN'>Unknown</option>
               <option value='OPOSITIVE'>O+</option>
@@ -66,7 +66,7 @@ const Signup = () => {
               <option value='BPOSITIVE'>B+</option>
               <option value='BNEGATIVE'>B-</option>
             </select>
-            <textarea name='additionalInfo' placeholder="( optional ) Please list any allergies, medications, or other relevant health information." className="textarea textarea-bordered text-base-content"/>
+            <textarea name='additionalInfo' placeholder="(Optional) Please list any allergies, medications, or other relevant health information." className="textarea textarea-bordered text-base-content"/>
             <button className='btn' type="submit">
               Update
             </button>

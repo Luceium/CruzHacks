@@ -39,7 +39,7 @@ export default function UpdateAccountForm (props : Props) {
                 <option value='BPOSITIVE'>B+</option>
                 <option value='BNEGATIVE'>B-</option>
               </select>
-              <textarea name='additionalInfo' placeholder="( optional ) Please list any allergies, medications, or other relevant health information." className="textarea textarea-bordered text-base-content" defaultValue={props.initialValues?.additionalInfo as string} />
+              <textarea name='additionalInfo' placeholder="(Optional) Please list any allergies, medications, or other relevant health information." className="textarea textarea-bordered text-base-content" defaultValue={props.initialValues?.additionalInfo as string} />
               <div className="form-control">
                 <label className="label cursor-pointer">
                   <span className="label-text text-base-content">Do you have any medical experience and are willing to help out?</span> 
