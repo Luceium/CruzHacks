@@ -18,7 +18,7 @@ type Props = {
 
 const EventComponent = ({ event, joined, admin}: Props) => {
   return(
-      <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 rounded-lg gap-2 text-primary-content justify-center items-center">
+      <div className="grid grid-cols-5 md:min-h-48 bg-primary p-4 pr-6 rounded-lg gap-2 text-primary-content justify-center items-center">
         <div className="flex flex-col col-span-3">
           <div className="text-h-full text-2xl truncate">
             {event.title}
@@ -28,7 +28,7 @@ const EventComponent = ({ event, joined, admin}: Props) => {
           </div>
         </div>
         <a href={`/events/${event.id}`}>
-          <button className="btn btn-secondary md:w-24 col-span-2">
+          <button className="btn btn-secondary w-36 lg:w-24 col-span-2">
             {admin ? "Manage" : (joined ? "View" : "Join")} Event
           </button>
         </a>
@@ -48,7 +48,7 @@ export default async function Home() {
         Slug it Out at Your Next Event...
       </h2>
       <div className="bg-gray-700 rounded-lg shadow-md
-        w-[90%] md:w-[80%] grid md:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] p-4">
+        w-[90%] md:w-[80%] grid lg:grid-cols-3 gap-2 overflow-y-auto  min-h-[calc(50vh)] p-4">
         {events.length > 0 ? (
           events.map((event) => (
             <EventComponent key={event.id} joined={event.userIds.includes(userInfo.id)} admin={event.adminIds.includes(userInfo.id)} event={event}/>
