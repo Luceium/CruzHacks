@@ -4,5 +4,5 @@ export default withMiddlewareAuthRequired();
 
 // middleware --> routes under /protected or /admin are now protected...
 export const config = {
-    matcher: ["/.+"],
+    matcher: "/:path+",
 };

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import Navbar from "@/components/Navbar";
 import Enforce from "@/util/enforce";
@@ -62,7 +62,7 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <body className={`bg-white ${inter.className}`}>
-          <Navbar />
+          <Navbar loggedIn/>
           <Enforce>{children}</Enforce>
         </body>
       </UserProvider>

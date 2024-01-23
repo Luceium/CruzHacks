@@ -1,6 +1,6 @@
 "use client"
 
-import { updateAccount } from "@/app/actions"
+import { updateAccount } from "@/actions"
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation"
 import { useFormState } from "react-dom"
