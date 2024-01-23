@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Safe And Slug",
   description: "Attend UCSC events safe and snug!",
+  manifest: "/manifest.json"
 };
 
 export default function RootLayout({
