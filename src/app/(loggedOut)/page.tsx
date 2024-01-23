@@ -1,14 +1,14 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 
 const page = () => {
   type BeforeInstallPromptEvent = any;
 
-  let installPrompt: BeforeInstallPromptEvent;
+  const [installPrompt,updateInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   if (typeof window !== "undefined") {
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault()
-      installPrompt = event
+      updateInstallPrompt(event)
     })
   }
 
