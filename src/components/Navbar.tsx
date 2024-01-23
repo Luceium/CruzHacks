@@ -3,7 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import classNames from "classnames";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import slug from "../../assets/safeandslug.png"
+import slug from "../app/icon.png"
 import Image from "next/image"
 import Link from "next/link";
 
