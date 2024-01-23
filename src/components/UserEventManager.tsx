@@ -1,6 +1,6 @@
 "use client"
 
-import { createEmergency } from "@/app/(loggedIn)/actions";
+import { createEmergency } from "@/actions";
 import { Event, StatusType, User } from "@prisma/client";
 import { useState } from "react";
 import Incident from "./Incident";

@@ -2,7 +2,7 @@
 
 import { Emergency as _Emergency, Event, User } from "@prisma/client";
 import UserList from "./userList";
-import { addAdmin, addUser, deleteEmergency, removeAdmin, removeUser } from "@/app/(loggedIn)/actions";
+import { addAdmin, addUser, deleteEmergency, removeAdmin, removeUser } from "@/actions";
 import { useEffect, useState } from "react";
 import QRCodeComponent from "@/components/QRCode";
 import dayjs from "dayjs";
