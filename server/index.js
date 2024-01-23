@@ -40,7 +40,7 @@ app.post('/updateUsers', async function requestHandler(req, res){
         if (client.eventId === req.body.event.id){
             client.send(JSON.stringify({
                 type: "updateUsers",
-                users: req.body.users
+                users: req.body.usersapp/(loggedIn)/
             }));
         }
     });
