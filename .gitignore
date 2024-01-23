@@ -37,4 +37,11 @@ next-env.d.ts
 
 .env
 
+#Personal VS code extensions
 settings.json
+
+#PWA
+sw.js
+sw.js.map
+workbox-*.js
+workbox-*.js.map
