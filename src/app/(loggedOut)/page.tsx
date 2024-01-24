@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-const page = () => {
+const Page = () => {
   type BeforeInstallPromptEvent = any;
   const [installPrompt, setInstallPrompt] = useState<null | BeforeInstallPromptEvent>(null)
 
@@ -25,4 +25,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
