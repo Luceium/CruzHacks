@@ -28,7 +28,7 @@ const EventComponent = ({ event, joined, admin}: Props) => {
           </div>
         </div>
         <a href={`/events/${event.id}`}>
-          <button className="btn btn-secondary w-36 lg:w-24 col-span-2">
+          <button className="btn btn-secondary btn-sm md:btn-md col-span-2">
             {admin ? "Manage" : (joined ? "View" : "Join")} Event
           </button>
         </a>

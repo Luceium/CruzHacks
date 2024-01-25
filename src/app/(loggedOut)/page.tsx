@@ -14,7 +14,7 @@ const Page = () => {
 
   return (
     <div className='h-screen flex flex-col items-center justify-center gap-10'>
-        <button className="btn btn-wide"><a href="/api/auth/login">Log In</a></button>
+        <a href="/api/auth/login"><button className="btn btn-wide">Log In</button></a>
         {/* TODO: only render in non-standalone and if browser supports download */}
         {installPrompt && <button className="btn btn-wide" onClick={async () => {
           const userSelection = await installPrompt.prompt()
